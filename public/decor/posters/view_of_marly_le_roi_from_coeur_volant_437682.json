@@ -1,0 +1,15 @@
+﻿{
+    "source":  "https://www.metmuseum.org",
+    "api":  "https://collectionapi.metmuseum.org/public/collection/v1/objects/437682",
+    "objectID":  437682,
+    "title":  "View of Marly-le-Roi from Coeur-Volant",
+    "artist":  "Alfred Sisley",
+    "objectDate":  "1876",
+    "medium":  "Oil on canvas",
+    "isPublicDomain":  true,
+    "imageQuality":  "primaryImageSmall",
+    "primaryImage":  "https://images.metmuseum.org/CRDImages/ep/original/DP130325.jpg",
+    "primaryImageSmall":  "https://images.metmuseum.org/CRDImages/ep/web-large/DP130325.jpg",
+    "objectURL":  "https://www.metmuseum.org/art/collection/search/437682",
+    "downloadedAt":  "2026-02-22T04:35:43.4884150-03:00"
+}

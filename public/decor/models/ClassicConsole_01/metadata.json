@@ -1,0 +1,46 @@
+{
+  "source": "https://polyhaven.com/",
+  "assetId": "ClassicConsole_01",
+  "resolution": "1k",
+  "license": "CC0 (site-wide statement from Poly Haven)",
+  "downloadedAt": "2026-02-22T06:20:39.065Z",
+  "info": {
+    "type": 2,
+    "tags": [
+      "wood",
+      "vintage",
+      "table",
+      "gothic",
+      "victorian",
+      "decorative"
+    ],
+    "date_published": 1585605600,
+    "name": "Classic Console 01",
+    "old_id": 15,
+    "categories": [
+      "furniture",
+      "table"
+    ],
+    "authors": {
+      "Kirill Sannikov": "All"
+    },
+    "sponsors": [
+      "7934315"
+    ],
+    "max_resolution": [
+      4096,
+      4096
+    ],
+    "polycount": 7566,
+    "texel_density": 2160.386627472063,
+    "dimensions": [
+      1543.0203676223755,
+      589.2754197120667,
+      949.0714100943478
+    ],
+    "files_hash": "acd2b694a1823478102c4fde925d1db6220acdcd",
+    "description": "Free 4K model: a carved Victorian Gothic wooden console table with ornate decorative scrollwork, cabriole legs and aged finish - ideal for vintage interiors.",
+    "download_count": 37274,
+    "thumbnail_url": "https://cdn.polyhaven.com/asset_img/thumbs/ClassicConsole_01.png?width=256&height=256"
+  }
+}

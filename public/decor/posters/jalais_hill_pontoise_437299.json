@@ -1,0 +1,15 @@
+﻿{
+    "source":  "https://www.metmuseum.org",
+    "api":  "https://collectionapi.metmuseum.org/public/collection/v1/objects/437299",
+    "objectID":  437299,
+    "title":  "Jalais Hill, Pontoise",
+    "artist":  "Camille Pissarro",
+    "objectDate":  "1867",
+    "medium":  "Oil on canvas",
+    "isPublicDomain":  true,
+    "imageQuality":  "primaryImageSmall",
+    "primaryImage":  "https://images.metmuseum.org/CRDImages/ep/original/DT1859.jpg",
+    "primaryImageSmall":  "https://images.metmuseum.org/CRDImages/ep/web-large/DT1859.jpg",
+    "objectURL":  "https://www.metmuseum.org/art/collection/search/437299",
+    "downloadedAt":  "2026-02-22T04:42:41.3225551-03:00"
+}

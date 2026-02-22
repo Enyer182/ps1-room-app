@@ -1,0 +1,15 @@
+{
+  "source": "https://www.metmuseum.org",
+  "api": "https://collectionapi.metmuseum.org/public/collection/v1/objects/436535",
+  "objectID": 436535,
+  "title": "Wheat Field with Cypresses",
+  "artist": "Vincent van Gogh",
+  "objectDate": "1889",
+  "medium": "Oil on canvas",
+  "isPublicDomain": true,
+  "imageQuality": "primaryImageSmall",
+  "primaryImage": "https://images.metmuseum.org/CRDImages/ep/original/DP-42549-001.jpg",
+  "primaryImageSmall": "https://images.metmuseum.org/CRDImages/ep/web-large/DP-42549-001.jpg",
+  "objectURL": "https://www.metmuseum.org/art/collection/search/436535",
+  "downloadedAt": "2026-02-22T06:12:26.036Z"
+}

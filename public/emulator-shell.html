@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    html, body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #040708;
+      color: #d8ffe8;
+      font-family: Consolas, monospace;
+    }
+
+    #game {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .boot {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      pointer-events: none;
+      background: radial-gradient(circle at 50% 50%, rgba(22, 39, 29, 0.6), rgba(3, 7, 8, 0.95));
+      color: #8dff9f;
+      letter-spacing: 0.08em;
+      animation: fadeOut 2.8s ease 0.8s forwards;
+    }
+
+    .scanlines {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(200, 255, 220, 0.04) 0,
+        rgba(200, 255, 220, 0.04) 1px,
+        transparent 1px,
+        transparent 4px
+      );
+      mix-blend-mode: screen;
+    }
+
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="game"></div>
+  <div class="boot"><div><strong>POWERING DISC...</strong><br /><small id="title"></small></div></div>
+  <div class="scanlines"></div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const gameUrl = params.get('rom') || '';
+    const biosUrl = params.get('bios') || '';
+    const extrasToken = params.get('extrasToken') || '';
+    const requestedCore = params.get('core') || 'psx';
+    const title = params.get('title') || 'PS1';
+    const supportedCoreMap = {
+      psx: 'psx',
+      pcsx_rearmed: 'psx',
+      mednafen_psx_hw: 'psx',
+      'beetle-psx': 'psx',
+    };
+    const core = supportedCoreMap[requestedCore] || 'psx';
+    const EXTERNAL_FILES_STORAGE_PREFIX = 'nostalgia:external-files:';
+    const LOCAL_ROM_ROUTE_PREFIX = '/__localrom__/';
+
+    document.getElementById('title').textContent = title;
+
+    const originalFetch = window.fetch.bind(window);
+    let localRomFilesMap = null;
+    let localRomUrlPrefix = '';
+    let recoverTimeout = 0;
+    let recoverRaf = 0;
+    let pendingRecoverReason = 'boot';
+    let lastRecoverAt = 0;
+    const RECOVERY_COOLDOWN_MS = 120;
+
+    function getLocalRomContext(targetUrl) {
+      try {
+        const parsed = new URL(targetUrl, window.location.origin);
+        const markerIndex = parsed.pathname.indexOf(LOCAL_ROM_ROUTE_PREFIX);
+        if (markerIndex === -1) {
+          return null;
+        }
+        const suffix = parsed.pathname.slice(markerIndex + LOCAL_ROM_ROUTE_PREFIX.length);
+        const slashIndex = suffix.indexOf('/');
+        if (slashIndex === -1) {
+          return null;
+        }
+        const token = decodeURIComponent(suffix.slice(0, slashIndex));
+        if (!token) {
+          return null;
+        }
+        const filePath = decodeURIComponent(suffix.slice(slashIndex + 1));
+        return {
+          token,
+          filePath,
+          prefix: `${window.location.origin}${LOCAL_ROM_ROUTE_PREFIX}${encodeURIComponent(token)}/`,
+        };
+      } catch {
+        return null;
+      }
+    }
+
+    function resolveLocalRomBlob(filePath) {
+      if (!localRomFilesMap) {
+        return null;
+      }
+
+      if (typeof localRomFilesMap[filePath] === 'string') {
+        return localRomFilesMap[filePath];
+      }
+
+      const byLower = localRomFilesMap[filePath.toLowerCase()];
+      if (typeof byLower === 'string') {
+        return byLower;
+      }
+
+      const base = filePath.split('/').pop() || filePath;
+      const byBase = localRomFilesMap[base];
+      if (typeof byBase === 'string') {
+        return byBase;
+      }
+      const byBaseLower = localRomFilesMap[base.toLowerCase()];
+      if (typeof byBaseLower === 'string') {
+        return byBaseLower;
+      }
+
+      return null;
+    }
+
+    function installLocalRomProxy() {
+      const localRomContext = getLocalRomContext(gameUrl);
+      if (!localRomContext) {
+        return null;
+      }
+
+      const storageRaw = sessionStorage.getItem(`${EXTERNAL_FILES_STORAGE_PREFIX}${localRomContext.token}`);
+      if (!storageRaw) {
+        console.warn('[nostalgia:localrom] manifest not found', localRomContext.token);
+        return null;
+      }
+
+      try {
+        const parsed = JSON.parse(storageRaw);
+        if (!parsed || typeof parsed !== 'object') {
+          return null;
+        }
+        localRomFilesMap = parsed;
+        localRomUrlPrefix = localRomContext.prefix;
+      } catch (error) {
+        console.warn('[nostalgia:localrom] invalid manifest payload', error);
+        return null;
+      }
+
+      window.fetch = async (input, init) => {
+        const requestUrl =
+          typeof input === 'string'
+            ? input
+            : input instanceof URL
+              ? input.toString()
+              : input && typeof input.url === 'string'
+                ? input.url
+                : '';
+
+        if (requestUrl && requestUrl.startsWith(localRomUrlPrefix)) {
+          const localContext = getLocalRomContext(requestUrl);
+          const blobUrl = localContext ? resolveLocalRomBlob(localContext.filePath) : null;
+          if (!blobUrl) {
+            return new Response('Not found', { status: 404 });
+          }
+
+          const method = (init && init.method ? init.method : 'GET').toUpperCase();
+          if (method === 'HEAD') {
+            return new Response('', { status: 200 });
+          }
+          return originalFetch(blobUrl, init);
+        }
+
+        return originalFetch(input, init);
+      };
+
+      return localRomContext;
+    }
+
+    function requestHostFullscreen(options) {
+      const frameElement = window.frameElement;
+      if (frameElement && typeof frameElement.requestFullscreen === 'function') {
+        return frameElement.requestFullscreen(options);
+      }
+
+      if (document.documentElement && typeof document.documentElement.requestFullscreen === 'function') {
+        return document.documentElement.requestFullscreen(options);
+      }
+
+      return Promise.reject(new Error('Fullscreen API unavailable'));
+    }
+
+    function exitHostFullscreen() {
+      const parentDocument =
+        window.parent && window.parent !== window && window.parent.document ? window.parent.document : document;
+
+      if (parentDocument.fullscreenElement && typeof parentDocument.exitFullscreen === 'function') {
+        return parentDocument.exitFullscreen();
+      }
+      if (document.fullscreenElement && typeof document.exitFullscreen === 'function') {
+        return document.exitFullscreen();
+      }
+
+      return Promise.resolve();
+    }
+
+    function installFullscreenProxy() {
+      Element.prototype.requestFullscreen = function patchedRequestFullscreen(options) {
+        return requestHostFullscreen(options).catch((error) => {
+          console.warn('[nostalgia:fullscreen] host fullscreen request failed', error);
+          throw error;
+        });
+      };
+
+      Document.prototype.exitFullscreen = function patchedExitFullscreen() {
+        return exitHostFullscreen().catch((error) => {
+          console.warn('[nostalgia:fullscreen] host fullscreen exit failed', error);
+          throw error;
+        });
+      };
+    }
+
+    function invokeIfFunction(target, methodName) {
+      if (!target || typeof target[methodName] !== 'function') {
+        return;
+      }
+      try {
+        target[methodName]();
+      } catch (error) {
+        console.warn('[nostalgia:recover] method failed', methodName, error);
+      }
+    }
+
+    function runSoftRecovery(reason) {
+      const now = performance.now();
+      if (now - lastRecoverAt < RECOVERY_COOLDOWN_MS) {
+        return;
+      }
+      lastRecoverAt = now;
+
+      const emulator = window.EJS_emulator;
+      window.dispatchEvent(new Event('resize'));
+      invokeIfFunction(emulator, 'resize');
+      invokeIfFunction(emulator, 'refresh');
+      invokeIfFunction(emulator, 'resume');
+      invokeIfFunction(emulator, 'play');
+
+      window.cancelAnimationFrame(recoverRaf);
+      recoverRaf = window.requestAnimationFrame(() => {
+        recoverRaf = window.requestAnimationFrame(() => {
+          window.dispatchEvent(new Event('resize'));
+          invokeIfFunction(window.EJS_emulator, 'resize');
+          console.info('[nostalgia:recover] soft recovery applied', reason);
+        });
+      });
+    }
+
+    function scheduleSoftRecovery(reason, delay = 0) {
+      pendingRecoverReason = reason;
+      if (recoverTimeout) {
+        window.clearTimeout(recoverTimeout);
+      }
+      recoverTimeout = window.setTimeout(() => {
+        runSoftRecovery(pendingRecoverReason);
+      }, delay);
+    }
+
+    async function verifyAsset(url, label) {
+      if (!url) {
+        throw new Error(label + ' is missing');
+      }
+      if (url.startsWith('blob:')) {
+        return 'blob';
+      }
+      const response = await fetch(url, { method: 'HEAD', cache: 'no-store' });
+      if (!response.ok) {
+        throw new Error(label + ' HTTP ' + response.status);
+      }
+      return response.headers.get('content-length') || 'unknown';
+    }
+
+    async function boot() {
+      try {
+        const previousReadyHandler = window.EJS_ready;
+        window.EJS_ready = (...args) => {
+          if (typeof previousReadyHandler === 'function') {
+            try {
+              previousReadyHandler(...args);
+            } catch (error) {
+              console.warn('[nostalgia:ready] previous handler failed', error);
+            }
+          }
+          scheduleSoftRecovery('ejs-ready', 60);
+        };
+
+        const localRomContext = installLocalRomProxy();
+        await verifyAsset(gameUrl, 'ROM');
+        if (biosUrl) {
+          await verifyAsset(biosUrl, 'BIOS');
+        }
+
+        window.EJS_player = '#game';
+        window.EJS_core = core;
+        window.EJS_gameUrl = gameUrl;
+        window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
+        window.EJS_startOnLoaded = true;
+        window.EJS_volume = 0.7;
+        window.EJS_color = '#8dff9f';
+        window.EJS_gameName = title;
+        window.EJS_disableDatabases = true;
+        window.EJS_disableLocalStorage = true;
+
+        if (localRomContext) {
+          window.EJS_gameParentUrl = localRomContext.prefix;
+        }
+
+        if (biosUrl) {
+          window.EJS_biosUrl = biosUrl;
+        }
+
+        if (extrasToken) {
+          const externalFilesRaw = sessionStorage.getItem(`${EXTERNAL_FILES_STORAGE_PREFIX}${extrasToken}`);
+          if (externalFilesRaw) {
+            try {
+              const externalFiles = JSON.parse(externalFilesRaw);
+              if (externalFiles && typeof externalFiles === 'object') {
+                window.EJS_externalFiles = externalFiles;
+              }
+            } catch (error) {
+              console.warn('[nostalgia:boot] invalid external files payload', error);
+            }
+          }
+        }
+
+        const loader = document.createElement('script');
+        loader.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
+        loader.async = true;
+        loader.onerror = () => {
+          console.error('Failed to load EmulatorJS loader');
+        };
+        document.body.appendChild(loader);
+      } catch (error) {
+        const message = error instanceof Error ? error.message : String(error);
+        console.error('Boot error', message, { rom: gameUrl, bios: biosUrl || 'none' });
+      }
+    }
+
+    window.addEventListener('message', (event) => {
+      if (event.origin !== window.location.origin) {
+        return;
+      }
+
+      if (!event.data || !event.data.type) {
+        return;
+      }
+
+      if (event.data.type === 'nostalgia:resume') {
+        scheduleSoftRecovery('parent-resume-message', 16);
+        return;
+      }
+
+      if (event.data.type === 'nostalgia:host-fullscreen-state') {
+        const hostFullscreenActive = Boolean(event.data.active);
+        scheduleSoftRecovery(hostFullscreenActive ? 'host-fullscreen-enter' : 'host-fullscreen-exit', 16);
+      }
+    });
+
+    document.addEventListener('fullscreenchange', () => {
+      scheduleSoftRecovery('document-fullscreenchange', 16);
+    });
+
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) {
+        scheduleSoftRecovery('visibility-visible', 24);
+      }
+    });
+
+    window.addEventListener('focus', () => {
+      scheduleSoftRecovery('window-focus', 24);
+    });
+
+    window.addEventListener('resize', () => {
+      scheduleSoftRecovery('window-resize', 0);
+    });
+
+    window.addEventListener('pageshow', () => {
+      scheduleSoftRecovery('pageshow', 16);
+    });
+
+    window.addEventListener('beforeunload', () => {
+      if (recoverTimeout) {
+        window.clearTimeout(recoverTimeout);
+      }
+      window.cancelAnimationFrame(recoverRaf);
+    });
+
+    installFullscreenProxy();
+    void boot();
+  </script>
+</body>
+</html>

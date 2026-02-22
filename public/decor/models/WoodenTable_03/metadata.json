@@ -1,0 +1,48 @@
+{
+  "source": "https://polyhaven.com/",
+  "assetId": "WoodenTable_03",
+  "resolution": "1k",
+  "license": "CC0 (site-wide statement from Poly Haven)",
+  "downloadedAt": "2026-02-22T06:20:18.977Z",
+  "info": {
+    "date_published": 1585605600,
+    "sponsors": [
+      "9910225",
+      "4714267"
+    ],
+    "name": "Wooden Table 03",
+    "old_id": 31,
+    "type": 2,
+    "authors": {
+      "Gabriel Radić": "All"
+    },
+    "categories": [
+      "furniture",
+      "collection: the_shed"
+    ],
+    "tags": [
+      "vintage",
+      "wood",
+      "prop",
+      "table",
+      "furniture",
+      "metal",
+      "shelf"
+    ],
+    "max_resolution": [
+      4096,
+      4096
+    ],
+    "polycount": 2298,
+    "texel_density": 1112.8293461036199,
+    "dimensions": [
+      1326.8529176712036,
+      561.7093443870544,
+      830.0816416740417
+    ],
+    "files_hash": "fda4446b0ce06f3bdd7fd51cc50d83257341bbbc",
+    "description": "Free 4K model. Vintage wooden sideboard with worn planks, metal trim, riveted mesh cabinet door and three drawers, showing aged industrial detailing.",
+    "download_count": 19681,
+    "thumbnail_url": "https://cdn.polyhaven.com/asset_img/thumbs/WoodenTable_03.png?width=256&height=256"
+  }
+}

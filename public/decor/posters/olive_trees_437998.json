@@ -1,0 +1,15 @@
+﻿{
+    "source":  "https://www.metmuseum.org",
+    "api":  "https://collectionapi.metmuseum.org/public/collection/v1/objects/437998",
+    "objectID":  437998,
+    "title":  "Olive Trees",
+    "artist":  "Vincent van Gogh",
+    "objectDate":  "1889",
+    "medium":  "Oil on canvas",
+    "isPublicDomain":  true,
+    "imageQuality":  "primaryImageSmall",
+    "primaryImage":  "https://images.metmuseum.org/CRDImages/ep/original/DT1946.jpg",
+    "primaryImageSmall":  "https://images.metmuseum.org/CRDImages/ep/web-large/DT1946.jpg",
+    "objectURL":  "https://www.metmuseum.org/art/collection/search/437998",
+    "downloadedAt":  "2026-02-22T04:42:42.3616090-03:00"
+}

@@ -1,0 +1,194 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "television-shell-main",
+      "kind": "model",
+      "modelUrl": "/decor/models/Television_01/Television_01_1k.gltf",
+      "position": [0, 0.34, -3.85],
+      "rotation": [0, 3.1415926, 0],
+      "scale": 0.78,
+      "enabled": false
+    },
+    {
+      "id": "television-prop-right",
+      "kind": "model",
+      "modelUrl": "/decor/models/Television_01/Television_01_1k.gltf",
+      "position": [4.15, 0.12, -2.92],
+      "rotation": [0, -0.85, 0],
+      "scale": 0.46,
+      "enabled": false
+    },
+    {
+      "id": "table-main-hq",
+      "kind": "model",
+      "modelUrl": "/decor/models/WoodenTable_03/WoodenTable_03_1k.gltf",
+      "position": [2.2, 0.02, 0.78],
+      "rotation": [0, 3.1415926, 0],
+      "scale": 0.46,
+      "enabled": false
+    },
+    {
+      "id": "cabinet-left-hq",
+      "kind": "model",
+      "modelUrl": "/decor/models/WoodenTable_03/WoodenTable_03_1k.gltf",
+      "position": [-4.63, 0.02, -1.34],
+      "rotation": [0, 1.5707963, 0],
+      "scale": 0.72,
+      "enabled": false
+    },
+    {
+      "id": "console-main-hq",
+      "kind": "model",
+      "modelUrl": "/decor/models/ClassicConsole_01/ClassicConsole_01_1k.gltf",
+      "position": [0, 0.53, -2.2],
+      "rotation": [0, 3.1415926, 0],
+      "scale": 0.33,
+      "enabled": false
+    },
+    {
+      "id": "can-rusted-main",
+      "kind": "model",
+      "modelUrl": "/decor/models/can_rusted/can_rusted_1k.gltf",
+      "position": [-2.08, 0.6, -2.18],
+      "rotation": [0, 0.6, 0],
+      "scale": 0.2,
+      "enabled": false
+    },
+    {
+      "id": "sofa-model-main",
+      "kind": "model",
+      "modelUrl": "/decor/models/Sofa_01/Sofa_01_1k.gltf",
+      "position": [0, 0.06, 2.6],
+      "rotation": [0, 3.1415926, 0],
+      "scale": 1.14,
+      "enabled": true
+    },
+    {
+      "id": "boombox-table",
+      "kind": "model",
+      "modelUrl": "/decor/models/boombox/boombox_1k.gltf",
+      "position": [2.49, 0.39, 0.92],
+      "rotation": [0, 2.4, 0],
+      "scale": 0.23,
+      "enabled": false
+    },
+    {
+      "id": "gamepad-table",
+      "kind": "model",
+      "modelUrl": "/decor/models/gamepad/gamepad_1k.gltf",
+      "position": [1.99, 0.4, 0.71],
+      "rotation": [0, 1.4, 0],
+      "scale": 0.135,
+      "enabled": false
+    },
+    {
+      "id": "boombox-corner-right",
+      "kind": "model",
+      "modelUrl": "/decor/models/boombox/boombox_1k.gltf",
+      "position": [4.86, 0.06, -2.86],
+      "rotation": [0, -2.4, 0],
+      "scale": 0.33,
+      "enabled": false
+    },
+    {
+      "id": "hanging-frame-side",
+      "kind": "model",
+      "modelUrl": "/decor/models/hanging_picture_frame_01/hanging_picture_frame_01_1k.gltf",
+      "position": [-5.26, 2.2, 1.45],
+      "rotation": [0, 1.5707963, 0],
+      "scale": 0.84,
+      "enabled": false
+    },
+    {
+      "id": "met-painting-main",
+      "kind": "poster",
+      "textureUrl": "/decor/posters/wheat_field_with_cypresses_436535.jpg",
+      "position": [5.33, 2.08, 2.06],
+      "rotation": [0, -1.5707963, 0],
+      "size": [1.38, 1.1],
+      "frameColor": "#1c1a1e",
+      "enabled": true
+    },
+    {
+      "id": "met-painting-west-cypresses",
+      "kind": "poster",
+      "textureUrl": "/decor/posters/cypresses_437980.jpg",
+      "position": [-5.36, 2.18, -2.05],
+      "rotation": [0, 1.5707963, 0],
+      "size": [1.05, 1.42],
+      "frameColor": "#201b1f",
+      "enabled": true
+    },
+    {
+      "id": "met-painting-west-marly",
+      "kind": "poster",
+      "textureUrl": "/decor/posters/view_of_marly_le_roi_from_coeur_volant_437682.jpg",
+      "position": [-5.36, 2.18, -0.16],
+      "rotation": [0, 1.5707963, 0],
+      "size": [1.15, 1.42],
+      "frameColor": "#201b1f",
+      "enabled": true
+    },
+    {
+      "id": "met-painting-east-marseille",
+      "kind": "poster",
+      "textureUrl": "/decor/posters/the_gulf_of_marseille_seen_from_l_estaque_435872.jpg",
+      "position": [5.36, 2.15, -1.5],
+      "rotation": [0, -1.5707963, 0],
+      "size": [1.45, 1.04],
+      "frameColor": "#211c21",
+      "enabled": true
+    },
+    {
+      "id": "met-painting-back",
+      "kind": "poster",
+      "textureUrl": "/decor/posters/wheat_field_with_cypresses_436535.jpg",
+      "position": [-1.35, 2.03, 3.93],
+      "rotation": [0, 3.1415926, 0],
+      "size": [1.28, 1.02],
+      "frameColor": "#1e1b21",
+      "enabled": true
+    },
+    {
+      "id": "met-painting-back-left-olive",
+      "kind": "poster",
+      "textureUrl": "/decor/posters/olive_trees_437998.jpg",
+      "position": [-3.35, 2.16, 3.93],
+      "rotation": [0, 3.1415926, 0],
+      "size": [1.06, 1.36],
+      "frameColor": "#1f1a1f",
+      "enabled": true
+    },
+    {
+      "id": "met-painting-back-right-jalais",
+      "kind": "poster",
+      "textureUrl": "/decor/posters/jalais_hill_pontoise_437299.jpg",
+      "position": [1.86, 2.04, 3.93],
+      "rotation": [0, 3.1415926, 0],
+      "size": [1.34, 1.06],
+      "frameColor": "#221c22",
+      "enabled": true
+    },
+    {
+      "id": "met-painting-west-third",
+      "kind": "poster",
+      "textureUrl": "/decor/posters/wheat_field_with_cypresses_436535.jpg",
+      "position": [-5.36, 2.16, 1.58],
+      "rotation": [0, 1.5707963, 0],
+      "size": [1.24, 0.98],
+      "frameColor": "#201b1f",
+      "enabled": true
+    },
+    {
+      "id": "met-painting-east-third",
+      "kind": "poster",
+      "textureUrl": "/decor/posters/cypresses_437980.jpg",
+      "position": [5.36, 2.2, 0.15],
+      "rotation": [0, -1.5707963, 0],
+      "size": [0.98, 1.35],
+      "frameColor": "#201b1f",
+      "enabled": true
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "source": "https://polyhaven.com/",
+  "assetId": "Television_01",
+  "resolution": "1k",
+  "license": "CC0 (site-wide statement from Poly Haven)",
+  "downloadedAt": "2026-02-22T06:11:48.650Z",
+  "info": {
+    "date_published": 1585605600,
+    "name": "Television 01",
+    "old_id": 34,
+    "type": 2,
+    "authors": {
+      "Gabriel Radić": "All"
+    },
+    "sponsors": [
+      "11109006",
+      "26820710",
+      "3237733"
+    ],
+    "categories": [
+      "props",
+      "electronics",
+      "collection: the_shed"
+    ],
+    "tags": [
+      "vintage",
+      "prop",
+      "furniture",
+      "metal",
+      "wood",
+      "tv",
+      "television",
+      "video",
+      "audio"
+    ],
+    "max_resolution": [
+      4096,
+      4096
+    ],
+    "polycount": 1918,
+    "texel_density": 3077.7084023052357,
+    "dimensions": [
+      599.9999642372131,
+      470.8106815814972,
+      456.84892892313655
+    ],
+    "files_hash": "c00ac1c3a4f0cf9e01639ba242ce3748fb690ae7",
+    "description": "Free 4K model of a vintage tabletop CRT TV with wood casing, scratched metal bezel, worn knobs and speaker grille, smudged glass and realistic weathering.",
+    "download_count": 84078,
+    "thumbnail_url": "https://cdn.polyhaven.com/asset_img/thumbs/Television_01.png?width=256&height=256"
+  }
+}

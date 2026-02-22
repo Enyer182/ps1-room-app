@@ -1,0 +1,57 @@
+{
+  "source": "https://polyhaven.com/",
+  "assetId": "gamepad",
+  "resolution": "1k",
+  "license": "CC0 (site-wide statement from Poly Haven)",
+  "downloadedAt": "2026-02-22T06:16:12.319Z",
+  "info": {
+    "donated": true,
+    "name": "Gamepad",
+    "categories": [
+      "props"
+    ],
+    "type": 2,
+    "reviewers": [
+      "James Ray Cock"
+    ],
+    "tags": [
+      "game",
+      "video",
+      "tv",
+      "living room",
+      "lounge",
+      "80's",
+      "indoor games",
+      "entertainment",
+      "gaming",
+      "controller",
+      "nintendo",
+      "joystick",
+      "console",
+      "xbox",
+      "playstation",
+      "remote"
+    ],
+    "authors": {
+      "Josh Dean": "All"
+    },
+    "info": null,
+    "date_published": 1701820800,
+    "staging": null,
+    "max_resolution": [
+      4096,
+      4096
+    ],
+    "polycount": 9546,
+    "texel_density": 14943.890220855135,
+    "dimensions": [
+      404.0517807006836,
+      434.9614977836609,
+      18.924321746453643
+    ],
+    "files_hash": "5c8dcfd40d6e66cac6ad8555a40317333f1827ba",
+    "description": "Free 4K model: retro wired gray gamepad with D-pad, four colored face buttons, start/select switches, worn plastic and long cable.",
+    "download_count": 3605,
+    "thumbnail_url": "https://cdn.polyhaven.com/asset_img/thumbs/gamepad.png?width=256&height=256"
+  }
+}
