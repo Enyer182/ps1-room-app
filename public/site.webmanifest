@@ -1,0 +1,16 @@
+{
+  "name": "PS1 Nostalgia Room",
+  "short_name": "PS1 Room",
+  "description": "A PS1-inspired 3D room experience with a retro CRT emulator setup.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#10131a",
+  "theme_color": "#10131a",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
